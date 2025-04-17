@@ -2,7 +2,7 @@
 
 # Classical Cipher Implementations (CIA Assignment)
 
-This repository contains implementations of classical encryption ciphers as part of the CIA (Confidentiality, Integrity, Availability) coursework. Each cipher listed below is implemented in Python with simple examples and explanation.
+This repository contains implementations of classical encryption ciphers as part of the CIA (Confidentiality, Integrity, Availability) coursework. Each cipher listed below is implemented in c++ with simple examples and explanation.
 
 ## 🔐 Implemented Ciphers
 
@@ -22,9 +22,6 @@ This repository contains implementations of classical encryption ciphers as part
 | Route Cipher            | ✅ Done  | Transposition cipher that writes plaintext in a grid. |
 | Myszkowski Cipher       | ✅ Done  | Transposition cipher using repeating-key keyword. |
 
-## 🧠 How to Use
-
-Each cipher is contained in its own Python file for modularity. You can run any script directly using Python:
 
 ```bash
 python ceasar_cipher.py
