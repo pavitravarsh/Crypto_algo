@@ -23,5 +23,4 @@ This repository contains implementations of classical encryption ciphers as part
 | Myszkowski Cipher       | ✅ Done  | Transposition cipher using repeating-key keyword. |
 
 
-```bash
-python ceasar_cipher.py
+
