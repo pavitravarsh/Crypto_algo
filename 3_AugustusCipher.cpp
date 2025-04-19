@@ -1,84 +1,52 @@
-
+#include <iostream>
 #include <string>
-#include <map>
-#include <algorithm>
 using namespace std;
 
-string toLowerCase(const string &input)
-{
-    string result = input;
-    transform(result.begin(), result.end(), result.begin(), ::tolower);
+string augustEncrypt(string text) {
+    string result = "";
+    int key = 1; // Fixed shift for August Cipher
+
+    for (char c : text) {
+        if (isupper(c)) {
+            result += 'A' + (c - 'A' + key) % 26;
+        } else if (islower(c)) {
+            result += 'a' + (c - 'a' + key) % 26;
+        } else {
+            result += c; // Keep spaces and symbols unchanged
+        }
+    }
+
     return result;
 }
 
-string augustEncrypt(const string &plaintext, const string &keyword, int shift)
-{
-    string normalAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    string substitutionAlphabet = "";
+string augustDecrypt(string text) {
+    string result = "";
+    int key = 1; // Fixed shift
 
-    string processedKeyword = toLowerCase(keyword);
-    for (char c : processedKeyword)
-        if (isalpha(c) && substitutionAlphabet.find(c) == string::npos)
-            substitutionAlphabet += c;
-
-    for (char c : normalAlphabet)
-        if (substitutionAlphabet.find(c) == string::npos)
-            substitutionAlphabet += c;
-
-    string shiftedAlphabet = "";
-    for (size_t i = 0; i < substitutionAlphabet.size(); i++)
-        shiftedAlphabet += substitutionAlphabet[(i + shift) % 26];
-
-    string ciphertext = "";
-    for (char c : plaintext)
-    {
-        if (isalpha(c))
-        {
-            char base = islower(c) ? 'a' : 'A';
-            size_t pos = tolower(c) - 'a';
-            char encryptedChar = islower(c) ? shiftedAlphabet[pos] : toupper(shiftedAlphabet[pos]);
-            ciphertext += encryptedChar;
+    for (char c : text) {
+        if (isupper(c)) {
+            result += 'A' + (c - 'A' - key + 26) % 26;
+        } else if (islower(c)) {
+            result += 'a' + (c - 'a' - key + 26) % 26;
+        } else {
+            result += c;
         }
-        else
-            ciphertext += c;
     }
 
-    return ciphertext;
+    return result;
 }
 
-string augustDecrypt(const string &ciphertext, const string &keyword, int shift)
-{
-    string normalAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    string substitutionAlphabet = "";
+int main() {
+    string message;
 
-    string processedKeyword = toLowerCase(keyword);
-    for (char c : processedKeyword)
-        if (isalpha(c) && substitutionAlphabet.find(c) == string::npos)
-            substitutionAlphabet += c;
+    cout << "Enter message: ";
+    getline(cin, message);
 
-    for (char c : normalAlphabet)
-        if (substitutionAlphabet.find(c) == string::npos)
-            substitutionAlphabet += c;
+    string encrypted = augustEncrypt(message);
+    cout << "Encrypted (August Cipher): " << encrypted << endl;
 
-    string shiftedAlphabet = "";
-    for (size_t i = 0; i < substitutionAlphabet.size(); i++)
-        shiftedAlphabet += substitutionAlphabet[(i + shift) % 26];
+    string decrypted = augustDecrypt(encrypted);
+    cout << "Decrypted: " << decrypted << endl;
 
-    map<char, char> decryptMap;
-    for (size_t i = 0; i < normalAlphabet.size(); i++)
-        decryptMap[shiftedAlphabet[i]] = normalAlphabet[i];
-
-    string plaintext = "";
-    for (char c : ciphertext)
-    {
-        if (isalpha(c))
-        {
-            char decryptedChar = islower(c) ? decryptMap[c] : toupper(decryptMap[tolower(c)]);
-            plaintext += decryptedChar;
-        }
-        else
-            plaintext += c;
-    }
-
-    return plaintext;
+    return 0;
 }
