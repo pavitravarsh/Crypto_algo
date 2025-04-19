@@ -1,21 +1,31 @@
-
+#include <iostream>
 #include <string>
 using namespace std;
 
-string atbashCipher(const string &input)
-{
-    string result;
-    for (char c : input)
-    {
-        if (isalpha(c))
-        {
-            char base = islower(c) ? 'a' : 'A';
-            result += static_cast<char>(base + 25 - (c - base));
-        }
-        else
-        {
-            result += c;
+string atbashCipher(string text) {
+    string result = "";
+
+    for (char c : text) {
+        if (isupper(c)) {
+            result += 'A' + (25 - (c - 'A'));
+        } else if (islower(c)) {
+            result += 'a' + (25 - (c - 'a'));
+        } else {
+            result += c; 
         }
     }
+
     return result;
+}
+
+int main() {
+    string text;
+
+    cout << "Enter text for Atbash cipher: ";
+    getline(cin, text);
+
+    string output = atbashCipher(text);
+    cout << "Atbash Output: " << output << endl;
+
+    return 0;
 }
