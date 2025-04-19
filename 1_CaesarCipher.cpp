@@ -11,7 +11,7 @@ string caesarEncrypt(string text, int key) {
             char enc = (c - base + key) % 26 + base;
             result += enc;
         } else {
-            result += c; // keep non-alphabet characters unchanged
+            result += c; 
         }
     }
 
